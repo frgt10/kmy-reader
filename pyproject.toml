@@ -32,6 +32,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["black", "build", "twine", "pytest", "pytest-cov"]
+
 [project.urls]
 Homepage = "https://github.com/frgt10/kmy-reader"
 Source = "https://github.com/frgt10/kmy-reader"
@@ -42,3 +45,14 @@ version = { attr = "kmy.__version__" }
 
 [tool.setuptools.packages.find]
 include = ["kmy*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["kmy"]
+
+[tool.black]
+target-version = ["py39"]
+line-length = 88

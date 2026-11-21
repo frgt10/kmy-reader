@@ -1,7 +1,9 @@
 import unittest
+from pathlib import Path
+
 from kmy.kmy import Kmy
 
-file_name = 'Test.kmy'
+file_name = Path(__file__).parent / "Test.kmy"
 
 
 class TestUserAddress(unittest.TestCase):
