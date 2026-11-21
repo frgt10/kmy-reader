@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kmy-reader"
+dynamic = ["version"]
+description = "Package to read KMyMoney data (.kmy) files"
+readme = "README.rst"
+authors = [
+    { name = "Tim Erickson", email = "tim@timerickson.io" },
+    { name = "Stanislav Ashirov", email = "stas.ashirov@yandex.ru" },
+]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+keywords = ["python", "KMyMoney", "kmy"]
+classifiers = [
+    "Development Status :: 4 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial :: Accounting",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/frgt10/kmy-reader"
+Source = "https://github.com/frgt10/kmy-reader"
+Issues = "https://github.com/frgt10/kmy-reader/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "kmy.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["kmy*"]

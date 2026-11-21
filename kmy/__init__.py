@@ -13,3 +13,5 @@ from .tag import Tag
 from .transaction import Transaction
 from .user import User
 from .useraddress import UserAddress
+
+__version__ = "0.0.4"
