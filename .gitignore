@@ -1,6 +1,13 @@
 /venv/
-/kmy.egg-info/
+*.egg-info/
 /dist/
 /build/
 /.idea/
 /**/__pycache__/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
