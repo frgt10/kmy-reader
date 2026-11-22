@@ -14,7 +14,7 @@ class Payee:
         self.address: PayeeAddress = PayeeAddress()
         self.payeeIdentifiers: List[Dict[str, str]] = list()
         self.usingMatchkey: bool = False
-        self.matchkeys: List[str]
+        self.matchkeys: List[str] = []
 
     def __repr__(self):
         return f"{self.__class__.__name__}(name='{self.name}')"
@@ -32,7 +32,8 @@ class Payee:
         self.id = node.attrib['id']
         self.matchingEnabled = (node.attrib['matchingenabled'] != '0')
         self.usingMatchkey = (node.attrib["usingmatchkey"] != "0") if "usingmatchkey" in node.attrib else False
-        self.matchkeys = node.attrib["matchkey"].split("&#xa;") if "matchkeys" in node.attrib else []
+        matchkey = node.attrib.get("matchkey", "")
+        self.matchkeys = matchkey.split("\n") if matchkey else []
         address_node = node.find('ADDRESS')
         if address_node is not None:
             self.address = PayeeAddress.from_xml(address_node)

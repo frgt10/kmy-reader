@@ -1,7 +1,9 @@
 import unittest
+import xml.etree.ElementTree as elementTree
 from pathlib import Path
 
 from kmy.kmy import Kmy
+from kmy.payee import Payee
 
 file_name = Path(__file__).parent / "Test.kmy"
 
@@ -29,6 +31,23 @@ class TestPayee(unittest.TestCase):
 
     def test_read_matching_enabled(self):
         self.assertEqual(False, self.payee0.matchingEnabled)
+
+    def test_read_matchkeys_default(self):
+        self.assertEqual([], Payee().matchkeys)
+
+    def test_read_matchkey(self):
+        node = elementTree.fromstring(
+            '<PAYEE reference="" name="Some From" email="" id="P000001" '
+            'matchingenabled="1" usingmatchkey="1" matchkey="^Foo$"/>'
+        )
+        self.assertEqual(["^Foo$"], Payee.from_xml(node).matchkeys)
+
+    def test_read_missing_matchkey(self):
+        node = elementTree.fromstring(
+            '<PAYEE reference="" name="Some From" email="" id="P000001" '
+            'matchingenabled="0"/>'
+        )
+        self.assertEqual([], Payee.from_xml(node).matchkeys)
 
 
 if __name__ == '__main__':
