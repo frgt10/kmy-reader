@@ -1,5 +1,6 @@
 from .account import Account
 from .address import Address
+from .conversion import fraction_to_decimal
 from .costcenter import CostCenter
 from .fileinfo import FileInfo
 from .institution import Institution

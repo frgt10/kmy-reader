@@ -1,7 +1,10 @@
 import unittest
+import xml.etree.ElementTree as elementTree
+from decimal import Decimal
 from pathlib import Path
 
 from kmy.kmy import Kmy
+from kmy.split import Split
 
 file_name = Path(__file__).parent / "Test.kmy"
 
@@ -22,7 +25,7 @@ class TestSplit(unittest.TestCase):
         self.assertEqual('', self.split0.memo)
 
     def test_read_shares(self):
-        self.assertEqual('42/1', self.split0.shares)
+        self.assertEqual(Decimal("42"), self.split0.shares)
 
     def test_read_number(self):
         self.assertEqual('', self.split0.number)
@@ -31,7 +34,7 @@ class TestSplit(unittest.TestCase):
         self.assertEqual('', self.split0.action)
 
     def test_read_price(self):
-        self.assertEqual('1/1', self.split0.price)
+        self.assertEqual(Decimal("1"), self.split0.price)
 
     def test_read_account(self):
         self.assertEqual('A000001', self.split0.account)
@@ -43,13 +46,24 @@ class TestSplit(unittest.TestCase):
         self.assertEqual('', self.split0.bankId)
 
     def test_read_value(self):
-        self.assertEqual('42/1', self.split0.value)
+        self.assertEqual(Decimal("42"), self.split0.value)
 
     def test_read_reconciledate(self):
         self.assertEqual('', self.split0.reconcileDate)
 
     def test_read_id(self):
         self.assertEqual('S0001', self.split0.id)
+
+    def test_read_fractional_values_as_decimal(self):
+        node = elementTree.fromstring(
+            '<SPLIT payee="" memo="" shares="3/2" number="" action="" price="1/4" '
+            'account="" reconcileflag="0" bankid="" value="-100/100" '
+            'reconciledate="" id="S0001"/>'
+        )
+        split = Split.from_xml(node)
+        self.assertEqual(Decimal("1.5"), split.shares)
+        self.assertEqual(Decimal("0.25"), split.price)
+        self.assertEqual(Decimal("-1"), split.value)
 
 
 if __name__ == '__main__':
