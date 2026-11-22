@@ -16,7 +16,7 @@ class TestInstitution(unittest.TestCase):
         self.assertEqual(1, len(self.institutions))
 
     def test_read_institution_sortcode(self):
-        self.assertEqual('Routing number', self.institution0.sortcode)
+        self.assertEqual("Routing number", self.institution0.sortCode)
 
     def test_read_institution_manager(self):
         self.assertEqual('', self.institution0.manager)
