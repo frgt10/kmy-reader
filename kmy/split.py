@@ -1,7 +1,10 @@
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal
+from typing import Optional
 
 from .conversion import fraction_to_decimal
+from .conversion import parse_date
 
 
 @dataclass(frozen=True)
@@ -16,7 +19,7 @@ class Split:
     reconcileFlag: str = ""
     bankId: str = ""
     value: Decimal = Decimal(0)
-    reconcileDate: str = ""
+    reconcileDate: Optional[date] = None
     id: str = ""
 
     @classmethod
@@ -32,6 +35,6 @@ class Split:
             reconcileFlag=node.attrib["reconcileflag"],
             bankId=node.attrib["bankid"],
             value=fraction_to_decimal(node.attrib["value"]),
-            reconcileDate=node.attrib["reconciledate"],
+            reconcileDate=parse_date(node.attrib["reconciledate"]),
             id=node.attrib["id"],
         )

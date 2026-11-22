@@ -1,5 +1,6 @@
 import unittest
 import xml.etree.ElementTree as elementTree
+from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
@@ -49,7 +50,15 @@ class TestSplit(unittest.TestCase):
         self.assertEqual(Decimal("42"), self.split0.value)
 
     def test_read_reconciledate(self):
-        self.assertEqual('', self.split0.reconcileDate)
+        self.assertIsNone(self.split0.reconcileDate)
+
+    def test_read_reconciledate_value(self):
+        node = elementTree.fromstring(
+            '<SPLIT payee="" memo="" shares="1/1" number="" action="" price="1/1" '
+            'account="" reconcileflag="1" bankid="" value="1/1" '
+            'reconciledate="2024-05-06" id="S0002"/>'
+        )
+        self.assertEqual(date(2024, 5, 6), Split.from_xml(node).reconcileDate)
 
     def test_read_id(self):
         self.assertEqual('S0001', self.split0.id)

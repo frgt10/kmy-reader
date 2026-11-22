@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 from pathlib import Path
 
 from kmy.kmy import Kmy
@@ -19,7 +20,7 @@ class TestAccount(unittest.TestCase):
         self.assertEqual('', self.account0.number)
 
     def test_read_lastmodified(self):
-        self.assertEqual('', self.account0.lastModified)
+        self.assertIsNone(self.account0.lastModified)
 
     def test_read_institution(self):
         self.assertEqual('', self.account0.institution)
@@ -34,7 +35,7 @@ class TestAccount(unittest.TestCase):
         self.assertEqual('', self.account0.parentAccount)
 
     def test_read_lastreconciled(self):
-        self.assertEqual('', self.account0.lastReconciled)
+        self.assertIsNone(self.account0.lastReconciled)
 
     def test_read_description(self):
         self.assertEqual('', self.account0.description)
@@ -43,7 +44,12 @@ class TestAccount(unittest.TestCase):
         self.assertEqual('9', self.account0.type)
 
     def test_read_opened(self):
-        self.assertEqual('', self.account0.opened)
+        self.assertIsNone(self.account0.opened)
+
+    def test_read_account_with_dates(self):
+        account = self.accounts[5]
+        self.assertEqual(date(2020, 12, 13), account.lastModified)
+        self.assertEqual(date(2020, 1, 1), account.opened)
 
     def test_read_id(self):
         self.assertEqual('AStd::Asset', self.account0.id)

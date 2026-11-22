@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 from pathlib import Path
 
 from kmy.kmy import Kmy
@@ -16,7 +17,7 @@ class TestTransaction(unittest.TestCase):
         self.assertEqual(5, len(self.transactions))
 
     def test_read_postdate(self):
-        self.assertEqual('2020-01-01', self.transaction0.postDate)
+        self.assertEqual(date(2020, 1, 1), self.transaction0.postDate)
 
     def test_read_memo(self):
         self.assertEqual('', self.transaction0.memo)
@@ -25,7 +26,7 @@ class TestTransaction(unittest.TestCase):
         self.assertEqual('USD', self.transaction0.commodity)
 
     def test_read_entrydate(self):
-        self.assertEqual('2020-12-13', self.transaction0.entryDate)
+        self.assertEqual(date(2020, 12, 13), self.transaction0.entryDate)
 
     def test_read_id(self):
         self.assertEqual('T000000000000000001', self.transaction0.id)
