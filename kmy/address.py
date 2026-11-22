@@ -1,16 +1,22 @@
 class Address:
-    def __init__(self):
-        self.city: str = ""
-        self.street: str = ""
-        self.telephone: str = ""
+    def __init__(
+        self,
+        city: str = "",
+        street: str = "",
+        telephone: str = "",
+    ):
+        self.city = city
+        self.street = street
+        self.telephone = telephone
+
+    @staticmethod
+    def _kwargs_from_xml(node):
+        return {
+            "city": node.attrib["city"],
+            "street": node.attrib["street"],
+            "telephone": node.attrib["telephone"],
+        }
 
     @classmethod
     def from_xml(cls, node):
-        address = cls()
-        address.init_from_xml(node)
-        return address
-
-    def init_from_xml(self, node):
-        self.city = node.attrib['city']
-        self.street = node.attrib['street']
-        self.telephone = node.attrib['telephone']
+        return cls(**cls._kwargs_from_xml(node))

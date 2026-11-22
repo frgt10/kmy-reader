@@ -1,34 +1,41 @@
 from typing import List
+from typing import Optional
 
 from .split import Split
 
 
 class Transaction:
-    def __init__(self):
-        self.postDate: str = ""
-        self.memo: str = ""
-        self.commodity: str = ""
-        self.entryDate: str = ""
-        self.id: str = ""
-        self.splits: List[Split] = []
+    def __init__(
+        self,
+        postDate: str = "",
+        memo: str = "",
+        commodity: str = "",
+        entryDate: str = "",
+        id: str = "",
+        splits: Optional[List[Split]] = None,
+    ):
+        self.postDate = postDate
+        self.memo = memo
+        self.commodity = commodity
+        self.entryDate = entryDate
+        self.id = id
+        self.splits = splits if splits is not None else []
 
     def __repr__(self):
         return f"{self.__class__.__name__}(postDate='{self.postDate}', memo='{self.memo}')"
 
     @classmethod
     def from_xml(cls, node):
-        transaction = cls()
-        transaction.init_from_xml(node)
-        return transaction
-
-    def init_from_xml(self, node):
-        self.postDate = node.attrib['postdate']
-        self.memo = node.attrib['memo']
-        self.commodity = node.attrib['commodity']
-        self.entryDate = node.attrib['entrydate']
-        self.id = node.attrib['id']
-        split_nodes = node.find('SPLITS')
+        splits = []
+        split_nodes = node.find("SPLITS")
         if split_nodes is not None:
             for split_node in split_nodes:
-                split = Split.from_xml(split_node)
-                self.splits.append(split)
+                splits.append(Split.from_xml(split_node))
+        return cls(
+            postDate=node.attrib["postdate"],
+            memo=node.attrib["memo"],
+            commodity=node.attrib["commodity"],
+            entryDate=node.attrib["entrydate"],
+            id=node.attrib["id"],
+            splits=splits,
+        )

@@ -2,18 +2,22 @@ from .address import Address
 
 
 class UserAddress(Address):
-    def __init__(self):
-        super().__init__()
-        self.zipcode: str = ""
-        self.county: str = ""
+    def __init__(
+        self,
+        city: str = "",
+        street: str = "",
+        telephone: str = "",
+        zipcode: str = "",
+        county: str = "",
+    ):
+        super().__init__(city=city, street=street, telephone=telephone)
+        self.zipcode = zipcode
+        self.county = county
 
     @classmethod
     def from_xml(cls, node):
-        address = cls()
-        address.init_from_xml(node)
-        return address
-
-    def init_from_xml(self, node):
-        super().init_from_xml(node)
-        self.zipcode = node.attrib['zipcode']
-        self.county = node.attrib['county']
+        return cls(
+            **cls._kwargs_from_xml(node),
+            zipcode=node.attrib["zipcode"],
+            county=node.attrib["county"],
+        )
