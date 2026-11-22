@@ -1,18 +1,12 @@
-class FileInfo:
-    def __init__(
-        self,
-        creationDate: str = "",
-        lastModifiedDate: str = "",
-        version: str = "",
-        fixVersion: str = "",
-    ):
-        self.creationDate = creationDate
-        self.lastModifiedDate = lastModifiedDate
-        self.version = version
-        self.fixVersion = fixVersion
+from dataclasses import dataclass
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}(creationDate='{self.creationDate}', lastModifiedDate={self.lastModifiedDate})"
+
+@dataclass(frozen=True)
+class FileInfo:
+    creationDate: str = ""
+    lastModifiedDate: str = ""
+    version: str = ""
+    fixVersion: str = ""
 
     @classmethod
     def from_xml(cls, node):

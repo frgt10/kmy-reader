@@ -1,18 +1,12 @@
-class Tag:
-    def __init__(
-        self,
-        closed: bool = False,
-        tagColor: str = "",
-        name: str = "",
-        id: str = "",
-    ):
-        self.closed = closed
-        self.tagColor = tagColor
-        self.name = name
-        self.id = id
+from dataclasses import dataclass
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}')"
+
+@dataclass(frozen=True)
+class Tag:
+    closed: bool = False
+    tagColor: str = ""
+    name: str = ""
+    id: str = ""
 
     @classmethod
     def from_xml(cls, node):

@@ -1,32 +1,21 @@
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict
 from typing import List
-from typing import Optional
 
 from .institutionaddress import InstitutionAddress
 from .pairs import pairs_dict_from_xml
 
 
+@dataclass(frozen=True)
 class Institution:
-    def __init__(
-        self,
-        id: str = "",
-        sortCode: str = "",
-        name: str = "",
-        manager: str = "",
-        address: Optional[InstitutionAddress] = None,
-        accountIds: Optional[List[str]] = None,
-        keyValuePairs: Optional[Dict[str, str]] = None,
-    ):
-        self.id = id
-        self.sortCode = sortCode
-        self.name = name
-        self.manager = manager
-        self.address = address if address is not None else InstitutionAddress()
-        self.accountIds = accountIds if accountIds is not None else []
-        self.keyValuePairs = keyValuePairs if keyValuePairs is not None else {}
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}')"
+    id: str = ""
+    sortCode: str = ""
+    name: str = ""
+    manager: str = ""
+    address: InstitutionAddress = field(default_factory=InstitutionAddress)
+    accountIds: List[str] = field(default_factory=list, compare=False)
+    keyValuePairs: Dict[str, str] = field(default_factory=dict, compare=False)
 
     @classmethod
     def from_xml(cls, node):

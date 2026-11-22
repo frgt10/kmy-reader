@@ -1,28 +1,18 @@
+from dataclasses import dataclass
+from dataclasses import field
 from typing import List
-from typing import Optional
 
 from .split import Split
 
 
+@dataclass(frozen=True)
 class Transaction:
-    def __init__(
-        self,
-        postDate: str = "",
-        memo: str = "",
-        commodity: str = "",
-        entryDate: str = "",
-        id: str = "",
-        splits: Optional[List[Split]] = None,
-    ):
-        self.postDate = postDate
-        self.memo = memo
-        self.commodity = commodity
-        self.entryDate = entryDate
-        self.id = id
-        self.splits = splits if splits is not None else []
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}(postDate='{self.postDate}', memo='{self.memo}')"
+    postDate: str = ""
+    memo: str = ""
+    commodity: str = ""
+    entryDate: str = ""
+    id: str = ""
+    splits: List[Split] = field(default_factory=list, compare=False)
 
     @classmethod
     def from_xml(cls, node):

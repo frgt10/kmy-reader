@@ -1,18 +1,12 @@
+from dataclasses import dataclass
+
 from .address import Address
 
 
+@dataclass(frozen=True)
 class PayeeAddress(Address):
-    def __init__(
-        self,
-        city: str = "",
-        street: str = "",
-        telephone: str = "",
-        postCode: str = "",
-        state: str = "",
-    ):
-        super().__init__(city=city, street=street, telephone=telephone)
-        self.postCode = postCode
-        self.state = state
+    postCode: str = ""
+    state: str = ""
 
     @classmethod
     def from_xml(cls, node):

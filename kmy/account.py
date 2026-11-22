@@ -1,44 +1,27 @@
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict
 from typing import List
-from typing import Optional
 
 from .pairs import pairs_dict_from_xml
 from .subaccount import SubAccount
 
 
+@dataclass(frozen=True)
 class Account:
-    def __init__(
-        self,
-        number: str = "",
-        lastModified: str = "",
-        institution: str = "",
-        name: str = "",
-        currency: str = "",
-        parentAccount: str = "",
-        lastReconciled: str = "",
-        description: str = "",
-        type: str = "",
-        opened: str = "",
-        id: str = "",
-        subAccounts: Optional[List[SubAccount]] = None,
-        keyValuePairs: Optional[Dict[str, str]] = None,
-    ):
-        self.number = number
-        self.lastModified = lastModified
-        self.institution = institution
-        self.name = name
-        self.currency = currency
-        self.parentAccount = parentAccount
-        self.lastReconciled = lastReconciled
-        self.description = description
-        self.type = type
-        self.opened = opened
-        self.id = id
-        self.subAccounts = subAccounts if subAccounts is not None else []
-        self.keyValuePairs = keyValuePairs if keyValuePairs is not None else {}
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}', currency={self.currency})"
+    number: str = ""
+    lastModified: str = ""
+    institution: str = ""
+    name: str = ""
+    currency: str = ""
+    parentAccount: str = ""
+    lastReconciled: str = ""
+    description: str = ""
+    type: str = ""
+    opened: str = ""
+    id: str = ""
+    subAccounts: List[SubAccount] = field(default_factory=list, compare=False)
+    keyValuePairs: Dict[str, str] = field(default_factory=dict, compare=False)
 
     @classmethod
     def from_xml(cls, node):

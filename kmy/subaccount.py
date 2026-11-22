@@ -1,9 +1,9 @@
-class SubAccount:
-    def __init__(self, id: str = ""):
-        self.id = id
+from dataclasses import dataclass
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}(id='{self.id}')"
+
+@dataclass(frozen=True)
+class SubAccount:
+    id: str = ""
 
     @classmethod
     def from_xml(cls, node):

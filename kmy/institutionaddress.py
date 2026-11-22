@@ -1,16 +1,11 @@
+from dataclasses import dataclass
+
 from .address import Address
 
 
+@dataclass(frozen=True)
 class InstitutionAddress(Address):
-    def __init__(
-        self,
-        city: str = "",
-        street: str = "",
-        telephone: str = "",
-        zip: str = "",
-    ):
-        super().__init__(city=city, street=street, telephone=telephone)
-        self.zip = zip
+    zip: str = ""
 
     @classmethod
     def from_xml(cls, node):

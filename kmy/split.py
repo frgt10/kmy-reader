@@ -1,34 +1,20 @@
-class Split:
-    def __init__(
-        self,
-        payee: str = "",
-        memo: str = "",
-        shares: str = "",
-        number: str = "",
-        action: str = "",
-        price: str = "",
-        account: str = "",
-        reconcileFlag: str = "",
-        bankId: str = "",
-        value: str = "",
-        reconcileDate: str = "",
-        id: str = "",
-    ):
-        self.payee = payee
-        self.memo = memo
-        self.shares = shares
-        self.number = number
-        self.action = action
-        self.price = price
-        self.account = account
-        self.reconcileFlag = reconcileFlag
-        self.bankId = bankId
-        self.value = value
-        self.reconcileDate = reconcileDate
-        self.id = id
+from dataclasses import dataclass
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}(payee='{self.payee}', value='{self.value}')"
+
+@dataclass(frozen=True)
+class Split:
+    payee: str = ""
+    memo: str = ""
+    shares: str = ""
+    number: str = ""
+    action: str = ""
+    price: str = ""
+    account: str = ""
+    reconcileFlag: str = ""
+    bankId: str = ""
+    value: str = ""
+    reconcileDate: str = ""
+    id: str = ""
 
     @classmethod
     def from_xml(cls, node):

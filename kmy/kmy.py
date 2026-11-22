@@ -1,8 +1,9 @@
 import gzip
 import xml.etree.ElementTree as elementTree
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict
 from typing import List
-from typing import Optional
 
 from .account import Account
 from .costcenter import CostCenter
@@ -15,31 +16,20 @@ from .transaction import Transaction
 from .user import User
 
 
+@dataclass(frozen=True, repr=False)
 class Kmy:
-    def __init__(
-        self,
-        fileInfo: Optional[FileInfo] = None,
-        user: Optional[User] = None,
-        institutions: Optional[List[Institution]] = None,
-        payees: Optional[List[Payee]] = None,
-        costCenters: Optional[List[CostCenter]] = None,
-        tags: Optional[List[Tag]] = None,
-        accounts: Optional[List[Account]] = None,
-        transactions: Optional[List[Transaction]] = None,
-        keyValuePairs: Optional[Dict[str, str]] = None,
-    ):
-        self.fileInfo = fileInfo if fileInfo is not None else FileInfo()
-        self.user = user if user is not None else User()
-        self.institutions = institutions if institutions is not None else []
-        self.payees = payees if payees is not None else []
-        self.costCenters = costCenters if costCenters is not None else []
-        self.tags = tags if tags is not None else []
-        self.accounts = accounts if accounts is not None else []
-        self.transactions = transactions if transactions is not None else []
-        self.keyValuePairs = keyValuePairs if keyValuePairs is not None else {}
+    fileInfo: FileInfo = field(default_factory=FileInfo)
+    user: User = field(default_factory=User)
+    institutions: List[Institution] = field(default_factory=list, compare=False)
+    payees: List[Payee] = field(default_factory=list, compare=False)
+    costCenters: List[CostCenter] = field(default_factory=list, compare=False)
+    tags: List[Tag] = field(default_factory=list, compare=False)
+    accounts: List[Account] = field(default_factory=list, compare=False)
+    transactions: List[Transaction] = field(default_factory=list, compare=False)
+    keyValuePairs: Dict[str, str] = field(default_factory=dict, compare=False)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(fileInfo='{self.fileInfo}', user={self.user})"
+        return f"{self.__class__.__name__}(fileInfo={self.fileInfo}, user={self.user})"
 
     @classmethod
     def from_xml(cls, node):

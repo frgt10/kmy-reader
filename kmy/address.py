@@ -1,13 +1,11 @@
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
 class Address:
-    def __init__(
-        self,
-        city: str = "",
-        street: str = "",
-        telephone: str = "",
-    ):
-        self.city = city
-        self.street = street
-        self.telephone = telephone
+    city: str = ""
+    street: str = ""
+    telephone: str = ""
 
     @staticmethod
     def _kwargs_from_xml(node):

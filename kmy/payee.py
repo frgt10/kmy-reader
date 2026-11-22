@@ -1,35 +1,22 @@
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict
 from typing import List
-from typing import Optional
 
 from .payeeaddress import PayeeAddress
 
 
+@dataclass(frozen=True)
 class Payee:
-    def __init__(
-        self,
-        reference: str = "",
-        name: str = "",
-        email: str = "",
-        id: str = "",
-        matchingEnabled: bool = False,
-        address: Optional[PayeeAddress] = None,
-        payeeIdentifiers: Optional[List[Dict[str, str]]] = None,
-        usingMatchkey: bool = False,
-        matchkeys: Optional[List[str]] = None,
-    ):
-        self.reference = reference
-        self.name = name
-        self.email = email
-        self.id = id
-        self.matchingEnabled = matchingEnabled
-        self.address = address if address is not None else PayeeAddress()
-        self.payeeIdentifiers = payeeIdentifiers if payeeIdentifiers is not None else []
-        self.usingMatchkey = usingMatchkey
-        self.matchkeys = matchkeys if matchkeys is not None else []
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}')"
+    reference: str = ""
+    name: str = ""
+    email: str = ""
+    id: str = ""
+    matchingEnabled: bool = False
+    address: PayeeAddress = field(default_factory=PayeeAddress)
+    payeeIdentifiers: List[Dict[str, str]] = field(default_factory=list, compare=False)
+    usingMatchkey: bool = False
+    matchkeys: List[str] = field(default_factory=list, compare=False)
 
     @classmethod
     def from_xml(cls, node):
