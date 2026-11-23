@@ -125,11 +125,28 @@
    </TRANSACTION>
   </SCHEDULED_TX>
  </SCHEDULES>
- <SECURITIES count="0"/>
+ <SECURITIES count="2">
+  <SECURITY id="E000001" name="Alpha Corp" symbol="ALP" type="0" rounding-method="7" saf="1" pp="2" trading-currency="USD" trading-market="NASDAQ">
+   <KEYVALUEPAIRS>
+    <PAIR key="kmm-online-factor" value="3/2"/>
+    <PAIR key="kmm-online-source" value="Yahoo"/>
+    <PAIR key="kmm-security-id" value="SEC-001"/>
+   </KEYVALUEPAIRS>
+  </SECURITY>
+  <SECURITY id="E000002" name="Beta Fund" symbol="BET" type="2" rounding-method="7" saf="100" pp="4" trading-currency="EUR" trading-market="MOEX"/>
+ </SECURITIES>
  <CURRENCIES count="1">
   <CURRENCY rounding-method="7" saf="100" pp="4" name="US Dollar" scf="100" symbol="$" type="3" id="USD"/>
  </CURRENCIES>
- <PRICES count="0"/>
+ <PRICES count="2">
+  <PRICEPAIR from="USD" to="EUR">
+   <PRICE date="2020-12-13" price="12345/100" source="KMyMoney"/>
+   <PRICE date="2020-12-14" price="3/2" source="Other"/>
+  </PRICEPAIR>
+  <PRICEPAIR from="EUR" to="USD">
+   <PRICE date="2020-12-13" price="1/1" source="KMyMoney"/>
+  </PRICEPAIR>
+ </PRICES>
  <REPORTS count="0"/>
  <BUDGETS count="0"/>
  <ONLINEJOBS count="0"/>

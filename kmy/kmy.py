@@ -11,6 +11,8 @@ from .fileinfo import FileInfo
 from .institution import Institution
 from .pairs import pairs_dict_from_xml
 from .payee import Payee
+from .pricepair import Pricepair
+from .security import Security
 from .tag import Tag
 from .transaction import Transaction
 from .user import User
@@ -26,6 +28,8 @@ class Kmy:
     tags: List[Tag] = field(default_factory=list, compare=False)
     accounts: List[Account] = field(default_factory=list, compare=False)
     transactions: List[Transaction] = field(default_factory=list, compare=False)
+    pricePairs: List[Pricepair] = field(default_factory=list, compare=False)
+    securities: List[Security] = field(default_factory=list, compare=False)
     keyValuePairs: Dict[str, str] = field(default_factory=dict, compare=False)
 
     def __repr__(self):
@@ -54,6 +58,14 @@ class Kmy:
             transactions=[
                 Transaction.from_xml(transaction_node)
                 for transaction_node in node.find("TRANSACTIONS")
+            ],
+            pricePairs=[
+                Pricepair.from_xml(price_pair_node)
+                for price_pair_node in node.find("PRICES")
+            ],
+            securities=[
+                Security.from_xml(security_node)
+                for security_node in node.find("SECURITIES")
             ],
             keyValuePairs=pairs_dict_from_xml(node.find("KEYVALUEPAIRS")),
         )
