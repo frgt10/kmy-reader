@@ -44,9 +44,7 @@ class Kmy:
                 Institution.from_xml(institution_node)
                 for institution_node in node.find("INSTITUTIONS")
             ],
-            payees=[
-                Payee.from_xml(payee_node) for payee_node in node.find("PAYEES")
-            ],
+            payees=[Payee.from_xml(payee_node) for payee_node in node.find("PAYEES")],
             costCenters=[
                 CostCenter.from_xml(costcenter_node)
                 for costcenter_node in node.find("COSTCENTERS")
@@ -73,7 +71,7 @@ class Kmy:
     @classmethod
     def from_kmy_file(cls, file_name):
         file_open = gzip.open if is_gz_file(file_name) else open
-        with file_open(file_name, 'rb') as file:
+        with file_open(file_name, "rb") as file:
             tree = elementTree.parse(file)
         root = tree.getroot()
         kmm = Kmy.from_xml(root)
@@ -81,5 +79,5 @@ class Kmy:
 
 
 def is_gz_file(filepath):
-    with open(filepath, 'rb') as test_f:
-        return test_f.read(2) == b'\x1f\x8b'
+    with open(filepath, "rb") as test_f:
+        return test_f.read(2) == b"\x1f\x8b"

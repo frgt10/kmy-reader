@@ -19,11 +19,11 @@ class TestFileInfo(unittest.TestCase):
         self.assertEqual(date(2020, 12, 13), self.fileInfo.lastModifiedDate)
 
     def test_read_version(self):
-        self.assertEqual('1', self.fileInfo.version)
+        self.assertEqual("1", self.fileInfo.version)
 
     def test_read_fixVersion(self):
-        self.assertEqual('5', self.fileInfo.fixVersion)
+        self.assertEqual("5", self.fileInfo.fixVersion)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

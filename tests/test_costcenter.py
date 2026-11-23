@@ -15,5 +15,5 @@ class TestCostCenter(unittest.TestCase):
         self.assertEqual(0, len(self.costCenters))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

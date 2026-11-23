@@ -19,19 +19,19 @@ class TestInstitution(unittest.TestCase):
         self.assertEqual("Routing number", self.institution0.sortCode)
 
     def test_read_institution_manager(self):
-        self.assertEqual('', self.institution0.manager)
+        self.assertEqual("", self.institution0.manager)
 
     def test_read_institution_name(self):
-        self.assertEqual('Name of the institution', self.institution0.name)
+        self.assertEqual("Name of the institution", self.institution0.name)
 
     def test_read_institution_id(self):
-        self.assertEqual('I000001', self.institution0.id)
+        self.assertEqual("I000001", self.institution0.id)
 
     def test_read_institution_accountids(self):
         self.assertEqual(2, len(self.institution0.accountIds))
-        self.assertEqual('A000001', self.institution0.accountIds[0])
-        self.assertEqual('A000003', self.institution0.accountIds[1])
+        self.assertEqual("A000001", self.institution0.accountIds[0])
+        self.assertEqual("A000003", self.institution0.accountIds[1])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
