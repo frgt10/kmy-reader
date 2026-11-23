@@ -4,6 +4,7 @@
 /dist/
 /build/
 /.idea/
+.vscode/
 /**/__pycache__/
 
 # Testing / coverage
