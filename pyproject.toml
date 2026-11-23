@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "kmy-reader"
 dynamic = ["version"]
 description = "Package to read KMyMoney data (.kmy) files"
-readme = "README.rst"
+readme = "README.md"
 authors = [
     { name = "Tim Erickson", email = "tim@timerickson.io" },
     { name = "Stanislav Ashirov", email = "stas.ashirov@yandex.ru" },
